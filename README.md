@@ -49,7 +49,7 @@ The main required libraries are:
 
 From the project root directory, run:
 
-streamlit run dashboard/)0_Globe_Overview.py
+streamlit run dashboard/0_Globe_Overview.py
 
 This will open the Streamlit application in your browser.
 
