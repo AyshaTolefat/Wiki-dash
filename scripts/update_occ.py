@@ -107,7 +107,7 @@ def main():
         df = run_sparql(q)
 
         if df.empty:
-            print("  no results")
+            print("no results")
             time.sleep(1.0)
             continue
 

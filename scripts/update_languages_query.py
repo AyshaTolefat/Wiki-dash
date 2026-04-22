@@ -70,7 +70,7 @@ def run_sparql(query: str, retries: int = 3, sleep_between: float = 10.0) -> pd.
             if attempt == retries:
                 print(f"giving up: {e}")
                 raise
-            print("  retrying...")
+            print("retrying")
             time.sleep(sleep_between)
 
 def fetch_languages_for_country(country_qid: str, country_label: str) -> pd.DataFrame | None:
@@ -79,7 +79,7 @@ def fetch_languages_for_country(country_qid: str, country_label: str) -> pd.Data
     try:
         df = run_sparql(query)
     except Exception as e:
-        print(f"  ERROR fetching languages for {country_label} ({country_qid}): {e}")
+        print(f"ERROR fetching languages for {country_label} ({country_qid}): {e}")
         return None
 
     if df.empty:
@@ -111,7 +111,7 @@ def main():
 
     missing = pd.read_csv(MISSING_QIDS_PATH)
     if "qid" not in missing.columns:
-        raise ValueError(f"'qid' column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
+        raise ValueError(f"qid column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
 
     label_col = None
     for c in ["wikidata_label", "name", "countryLabel"]:
@@ -138,7 +138,7 @@ def main():
         if df_c is not None:
             all_rows.append(df_c)
         else:
-            print("  no results / error")
+            print("no results/error")
 
         time.sleep(1.0)
 
@@ -148,7 +148,7 @@ def main():
 
     new_df = pd.concat(all_rows, ignore_index=True)
     merge_into_existing(OUTPUT_PATH, new_df)
-    print("Done.")
+    print("Done")
 
 if __name__ == "__main__":
     main()

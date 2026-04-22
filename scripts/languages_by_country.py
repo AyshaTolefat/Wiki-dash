@@ -68,10 +68,10 @@ def run_sparql(query: str, retries: int = 3, sleep_between: int = 10) -> pd.Data
 
         except Exception as e:
             if attempt == retries:
-                print("  giving up on this query")
+                print("giving up on this query")
                 raise
             else:
-                print("  retrying")
+                print("retrying")
                 time.sleep(sleep_between)
 
 def load_allowed_countries() -> pd.DataFrame:
@@ -122,7 +122,7 @@ def fetch_languages_by_country_all() -> pd.DataFrame | None:
         df_country = fetch_languages_for_country(country_qid)
 
         if df_country is None:
-            print("  no results / error")
+            print("no results/error")
             time.sleep(1.0)
             continue
 

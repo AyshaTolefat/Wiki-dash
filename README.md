@@ -27,6 +27,8 @@ The repository also includes the data-processing scripts used to collect, update
 
 ## Requirements
 
+Create and activate a virtual environment before installing requirements.
+
 Install the required packages with:
 
 pip install -r requirements.txt

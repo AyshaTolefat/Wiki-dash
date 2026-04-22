@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 def _safe_series(df: pd.DataFrame, col: str, default="") -> pd.Series:
@@ -233,28 +234,66 @@ def make_occupation_treemap(
         fig.update_layout(template="simple_white", height=700)
         return fig
 
-    plot_df = agg2.rename(columns={"occupationLabel": "Occupation"})
+    plot_df = agg2.rename(columns={"occupationLabel": "Occupation"}).copy()
 
-    fig = px.treemap(
-        plot_df,
-        path=[parent_col, "Occupation"],
-        values="count",
-        title=title,
+    parent_totals = (
+        plot_df.groupby(parent_col, as_index=False)["count"]
+        .sum()
+        .sort_values("count", ascending=False)
+        .reset_index(drop=True)
     )
 
-    fig.update_traces(
-        hovertemplate="<b>%{label}</b><br>Count: %{value:,}<extra></extra>",
-        marker=dict(line=dict(width=1, color="white"), pad=dict(t=1, l=1, r=1, b=1),),
-        textinfo="label",
-        root_color="rgba(0,0,0,0)",
+    labels = []
+    parents = []
+    values = []
+    ids = []
+
+    for _, row in parent_totals.iterrows():
+        parent_name = str(row[parent_col]).strip()
+        parent_id = f"parent::{parent_name}"
+
+        labels.append(parent_name)
+        parents.append("")
+        values.append(int(row["count"]))
+        ids.append(parent_id)
+
+    for _, row in plot_df.iterrows():
+        parent_name = str(row[parent_col]).strip()
+        occ_name = str(row["Occupation"]).strip()
+        leaf_id = f"leaf::{parent_name}::{occ_name}"
+
+        labels.append(occ_name)
+        parents.append(f"parent::{parent_name}")
+        values.append(int(row["count"]))
+        ids.append(leaf_id)
+
+    fig = go.Figure(
+        go.Treemap(
+            labels=labels,
+            parents=parents,
+            values=values,
+            ids=ids,
+            branchvalues="total",
+            textinfo="label",
+            texttemplate="%{label}",
+            hovertemplate="<b>%{label}</b><br>Count: %{value:,}<extra></extra>",
+            marker=dict(
+                line=dict(width=1, color="white")
+            ),
+            root=dict(color="rgba(0,0,0,0)"),
+            pathbar=dict(visible=False),
+            tiling=dict(pad=1),
+        )
     )
+
     fig.update_layout(
         template="simple_white",
         height=700,
-        margin=dict(l=10, r=10, t=60, b=10),
-        paper_bgcolor="White",
-        plot_bgcolor="White",
+        margin=dict(l=10, r=10, t=10, b=10),
+        paper_bgcolor="white",
+        plot_bgcolor="white",
     )
+
     return fig
 
 

@@ -81,7 +81,7 @@ def run_sparql(query: str, retries: int = 3, sleep_between: float = 10.0) -> pd.
             if attempt == retries:
                 print(f"giving up: {e}")
                 raise
-            print("retrying...")
+            print("retrying")
             time.sleep(sleep_between)
 
 def merge_into_existing(existing_path: Path, new_df: pd.DataFrame) -> None:
@@ -107,7 +107,7 @@ def main():
         df_chunk = run_sparql(query)
 
         if df_chunk.empty:
-            print("  no results")
+            print("no results")
             time.sleep(1.0)
             continue
 
@@ -127,7 +127,7 @@ def main():
 
     new_df = pd.concat(all_rows, ignore_index=True)
     merge_into_existing(OUTPUT_PATH, new_df)
-    print("Done.")
+    print("Done")
 
 if __name__ == "__main__":
     main()

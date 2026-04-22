@@ -79,9 +79,9 @@ def run_sparql(query: str, retries: int = 3, sleep_between: int = 10) -> pd.Data
 
         except Exception:
             if attempt == retries:
-                print("  giving up on this query")
+                print("giving up on this query")
                 raise
-            print("  retrying")
+            print("retrying")
             time.sleep(sleep_between)
 
 def load_allowed_countries() -> pd.DataFrame:
@@ -118,12 +118,12 @@ def fetch_ethnic_group_by_country_gender_all() -> pd.DataFrame | None:
         try:
             df_country = run_sparql(query)
         except Exception:
-            print("  error / timeout")
+            print("error/timeout")
             time.sleep(2.0)
             continue
 
         if df_country.empty:
-            print("  no results")
+            print("no results")
             time.sleep(1.0)
             continue
 

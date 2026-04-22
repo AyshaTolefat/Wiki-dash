@@ -84,7 +84,6 @@ def load_languages() -> pd.DataFrame:
     df["languageLabel"] = df["languageLabel"].apply(
         lambda x: resolve_label(x, label_map, "Unknown language")
     )
-
     return df
 
 
@@ -596,7 +595,7 @@ def section_occupations(qid: str, country_label: str):
             st.info("No occupation data available for this country.")
         else:
             fig_occ = cached_occupation_figure(qid, gender_filter, country_label)
-            fig_occ.update_layout(height=650, margin=dict(l=10,r=10,t=55,b=10), title_text="")
+            fig_occ.update_layout(height=650, margin=dict(l=10,r=10,t=10,b=10), title_text="")
             st.plotly_chart(
                 fig_occ,
                 use_container_width=True,

@@ -131,10 +131,10 @@ def fetch_range_adaptive(country_qid: str, y_min: int, y_max: int, chunk_size: i
         if e.code not in (429, 502, 503, 504):
             raise
         if chunk_size <= MIN_CHUNK:
-            print(f"    still failing at {y_min}-{y_max}")
+            print(f"still failing at {y_min}-{y_max}")
             return pd.DataFrame()
         mid = (y_min + y_max) // 2
-        print(f"    splitting {y_min}-{y_max} -> {y_min}-{mid} and {mid+1}-{y_max}")
+        print(f"splitting {y_min}-{y_max} -> {y_min}-{mid} and {mid+1}-{y_max}")
         left = fetch_range_adaptive(country_qid, y_min, mid, max(MIN_CHUNK, chunk_size // 2))
         time.sleep(SLEEP_BETWEEN_REQUESTS)
         right = fetch_range_adaptive(country_qid, mid + 1, y_max, max(MIN_CHUNK, chunk_size // 2))
@@ -152,12 +152,11 @@ def aggregate(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     if not FAILED_PATH.exists():
-        raise SystemExit(f"Missing {FAILED_PATH} (generate it from the first run)")
+        raise SystemExit(f"Missing {FAILED_PATH}")
 
     ensure_output_has_header()
     failed = pd.read_csv(FAILED_PATH)
     total = len(failed)
-    print(f"Chunked rerun (no LIMIT) for {total} failed countries")
 
     still_failed = []
 
@@ -180,7 +179,7 @@ def main():
             time.sleep(SLEEP_BETWEEN_REQUESTS)
 
         if not ok_any:
-            print("  still failing")
+            print("still failing")
             still_failed.append({"country": country_uri, "countryLabel": country_label, "country_qid": qid})
             continue
 
@@ -193,12 +192,12 @@ def main():
         df_country = df_country[["country", "countryLabel", "ethnicGroup", "ethnicGroupLabel", "genderCategory", "count"]]
         append_rows(df_country)
 
-        print(f"  appended {len(df_country)} rows")
+        print(f"appended {len(df_country)} rows")
         time.sleep(2.0)
 
     pd.DataFrame(still_failed).to_csv(FAILED_PATH, index=False)
     print(f"Updated failed list: {FAILED_PATH}")
-    print("Done.")
+    print("Done")
 
 if __name__ == "__main__":
     main()

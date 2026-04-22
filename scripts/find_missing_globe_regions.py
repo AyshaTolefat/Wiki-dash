@@ -75,7 +75,6 @@ def load_have_data_iso3(have_data_csv: Path, iso3_col: str | None) -> set[str]:
             raise ValueError(
                 f"Could not auto-detect an ISO-3 column in {have_data_csv}. "
                 f"Columns found: {list(df.columns)}\n"
-                f"Set ISO3_COL manually in the script to the correct column name."
             )
         iso3_col = found[0]
 

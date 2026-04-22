@@ -92,7 +92,7 @@ def merge_into_existing(existing_path: Path, new_df: pd.DataFrame) -> None:
         combined = new_df.drop_duplicates(subset=key_cols, keep="last")
 
     combined.to_csv(existing_path, index=False, encoding="utf-8")
-    print(f"Appended missing-only data into {existing_path.name}")
+    print(f"Appended missing only data into {existing_path.name}")
     print(f"Total rows now: {len(combined)}")
 
 def main():
@@ -102,7 +102,7 @@ def main():
     missing = pd.read_csv(MISSING_QIDS_PATH)
 
     if "qid" not in missing.columns:
-        raise ValueError(f"'qid' column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
+        raise ValueError(f"qid column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
 
     label_col = None
     for c in ["wikidata_label", "name", "countryLabel"]:

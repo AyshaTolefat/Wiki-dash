@@ -105,7 +105,7 @@ def main():
 
     missing = pd.read_csv(MISSING_QIDS_PATH)
     if "qid" not in missing.columns:
-        raise ValueError(f"'qid' column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
+        raise ValueError(f"qid column not found in {MISSING_QIDS_PATH}. Columns: {list(missing.columns)}")
 
     label_col = None
     for c in ["wikidata_label", "name", "countryLabel"]:
@@ -134,12 +134,12 @@ def main():
         try:
             df_chunk = run_sparql(query)
         except Exception:
-            print("  error / timeout")
+            print("error/timeout")
             time.sleep(2.0)
             continue
 
         if df_chunk.empty:
-            print("  no results")
+            print("no results")
             time.sleep(1.0)
             continue
 
@@ -163,7 +163,7 @@ def main():
 
     new_df = pd.concat(all_rows, ignore_index=True)
     merge_into_existing(OUTPUT_PATH, new_df)
-    print("Done.")
+    print("Done")
 
 if __name__ == "__main__":
     main()

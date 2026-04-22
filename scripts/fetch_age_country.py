@@ -76,10 +76,10 @@ def run_sparql(query: str, retries: int=3, sleep_between: int=10) -> pd.DataFram
             return pd.DataFrame(rows)
         except Exception as e:
             if attempt == retries:
-                print("  giving up on this query")
+                print("giving up on this query")
                 raise
             else:
-                print(f"  retrying")
+                print(f"retrying")
                 time.sleep(sleep_between)
 
 def load_allowed_countries() -> pd.DataFrame:
@@ -98,7 +98,7 @@ def fetch_age_for_country(country_qid: str, country_label: str) -> pd.DataFrame 
     try:
         df = run_sparql(query)
     except Exception as e:
-        print(f"  ERROR")
+        print(f"ERROR")
         return None
     if df.empty:
         return None

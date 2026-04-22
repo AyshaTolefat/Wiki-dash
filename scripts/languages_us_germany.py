@@ -92,9 +92,9 @@ def run_sparql(query: str, retries: int = 5, sleep_between: int = 12) -> pd.Data
         except Exception as e:
             last_error = e
             if attempt == retries:
-                print(f"    giving up: {e}")
+                print(f"giving up: {e}")
                 raise
-            print(f"    retrying after error: {e}")
+            print(f"retrying after error: {e}")
             time.sleep(sleep_between * attempt)
 
     raise last_error
@@ -150,9 +150,9 @@ def fetch_country_languages(country: dict, window_size: int = 5) -> pd.DataFrame
             print(f"    {start_year}-{end_year - 1} ...")
             df = fetch_one_window(country, prop, type_name, start_year, end_year)
             if df is None or df.empty:
-                print("      no rows / skipped")
+                print("no rows/skipped")
             else:
-                print(f"      got {len(df)} rows")
+                print(f"got {len(df)} rows")
                 all_parts.append(df)
                 save_checkpoint(all_parts)
             time.sleep(1.5)
@@ -238,7 +238,7 @@ def load_existing_csv() -> pd.DataFrame:
         print(f"Loaded existing CSV: {OUTPUT_PATH}")
         return df
 
-    print("languages_by_country.csv not found. Creating a new one.")
+    print("languages_by_country.csv not found.")
     return pd.DataFrame(columns=["country", "countryLabel", "language", "languageLabel", "type", "count"])
 
 
@@ -280,9 +280,9 @@ def main():
         df_country = fetch_country_languages(country, window_size=5)
 
         if df_country.empty:
-            print("  no rows fetched")
+            print("no rows fetched")
         else:
-            print(f"  total raw aggregated rows: {len(df_country)}")
+            print(f"total raw aggregated rows: {len(df_country)}")
             all_country_frames.append(df_country)
 
         time.sleep(2)

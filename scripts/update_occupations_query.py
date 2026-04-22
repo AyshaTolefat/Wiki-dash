@@ -130,12 +130,12 @@ def main():
         try:
             df = run_sparql(q)
         except Exception:
-            print("  error / timeout")
+            print("error")
             time.sleep(2.0)
             continue
 
         if df is None or df.empty:
-            print("  no results")
+            print("no results")
             time.sleep(1.0)
             continue
 
@@ -192,7 +192,7 @@ def main():
 
     combined.to_csv(OUT_REFINED, index=False, encoding="utf-8")
     print(f"Updated {OUT_REFINED.name}: {len(combined)} rows total")
-    print(f"Added/updated approx: {len(new_df)} rows (before dedupe)")
+    print(f"Added/updated approx: {len(new_df)} rows)")
 
 if __name__ == "__main__":
     main()

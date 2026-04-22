@@ -128,9 +128,9 @@ def load_geojson() -> dict:
         name = (props.get("NAME") or props.get("ADMIN") or props.get("NAME_EN")
                 or props.get("SOVEREIGNT") or props.get("GEONUNIT") or "")
         name = str(name).strip()
-        if name == "Kosovo":                          props["ISO3_FIX"] = "XKX"
+        if name == "Kosovo": props["ISO3_FIX"] = "XKX"
         elif name in {"Northern Cyprus","North Cyprus"}: props["ISO3_FIX"] = "CYN"
-        elif name == "Somaliland":                    props["ISO3_FIX"] = "SOL"
+        elif name == "Somaliland": props["ISO3_FIX"] = "SOL"
     return geo
 
 
