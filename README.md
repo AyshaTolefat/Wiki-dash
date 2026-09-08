@@ -27,9 +27,12 @@ The repository also includes the data-processing scripts used to collect, update
 
 ## Repository Structure
 
+```test
 dashboard/   Streamlit dashboard application
 data/        Prepared datasets used by the dashboard
 scripts/     Data extraction, update, and preprocessing scripts
+```
+---
 
 ## Installation
 
@@ -38,33 +41,44 @@ Clone the repository and move into the project directory:
 ```bash
 git clone https://github.com/AyshaTolefat/Wiki-dash.git
 cd Wiki-dash
+```
 
 Create a virtual environment:
 
+```bash
 python -m venv .venv
+```
+Activate the virtual environment.
 
-To activate on windows:
+**Windows:**
 
+```bash
 .venv\Scripts\activate
+```
 
-To activate on macOS/Linux:
+**macOS/Linux:**
 
+```bash
 source .venv/bin/activate
+```
 
-Install required dependencies:
+Install the required dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
 The main required libraries include:
+
 - streamlit
--pandas
--numpy
--plotly
--requests
--SPARQLWrapper
--pycountry
--geopandas
--shapely
+- pandas
+- numpy
+- plotly
+- requests
+- SPARQLWrapper
+- pycountry
+- geopandas
+- shapely
 
 ---
 
@@ -74,10 +88,11 @@ From the project root directory, run:
 
 ```bash
 streamlit run dashboard/0_Globe_Overview.py
+```
 
 This will open the Streamlit application in your browser.
 
-The dashboard reads the prepared datasets in the data/ directory, so no live Wikidata queries are required while using the application.
+The dashboard reads the prepared datasets in the `data/` directory, so no live Wikidata queries are required while using the application.
 
 ---
 
@@ -116,6 +131,7 @@ A single update script is provided to run the main data-refresh pipeline:
 
 ```bash
 python scripts/update_all.py
+```
 
 This regenerates and updates the datatsets for:
 - Overall gender distribution
@@ -141,5 +157,3 @@ The update pipeline also runs the existing handling for missing and special terr
 ## Author
 
 Aysha Tolefat
-
----
