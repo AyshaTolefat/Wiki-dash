@@ -27,7 +27,6 @@ The repository also includes the data-processing scripts used to collect, update
 
 ## Repository Structure
 
-```text
 dashboard/   Streamlit dashboard application
 data/        Prepared datasets used by the dashboard
 scripts/     Data extraction, update, and preprocessing scripts
