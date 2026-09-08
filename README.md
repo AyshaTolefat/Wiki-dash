@@ -1,5 +1,5 @@
 # Wiki-dash
-Interactive visualization dashboard for analyzing demographic bias in Wikidata.
+Interactive visual analytics dashboard for exploring demographic representation gaps in Wikidata biographies.
 
 It visualises country-level patterns in biography data derived from Wikidata, including:
 
@@ -25,25 +25,47 @@ The repository also includes the data-processing scripts used to collect, update
 
 ---
 
-## Requirements
+## Repository Structure
 
-Create and activate a virtual environment before installing requirements.
+```text
+dashboard/   Streamlit dashboard application
+data/        Prepared datasets used by the dashboard
+scripts/     Data extraction, update, and preprocessing scripts
 
-Install the required packages with:
+## Installation
+
+Clone the repository and move into the project directory:
+
+```bash
+git clone https://github.com/AyshaTolefat/Wiki-dash.git
+cd Wiki-dash
+
+Create a virtual environment:
+
+python -m venv .venv
+
+To activate on windows:
+
+.venv\Scripts\activate
+
+To activate on macOS/Linux:
+
+source .venv/bin/activate
+
+Install required dependencies:
 
 pip install -r requirements.txt
 
-The main required libraries are:
-
+The main required libraries include:
 - streamlit
-- pandas
-- numpy
-- plotly
-- requests
-- SPARQLWrapper
-- pycountry
-- geopandas
-- shapely
+-pandas
+-numpy
+-plotly
+-requests
+-SPARQLWrapper
+-pycountry
+-geopandas
+-shapely
 
 ---
 
@@ -51,9 +73,12 @@ The main required libraries are:
 
 From the project root directory, run:
 
+```bash
 streamlit run dashboard/0_Globe_Overview.py
 
 This will open the Streamlit application in your browser.
+
+The dashboard reads the prepared datasets in the data/ directory, so no live Wikidata queries are required while using the application.
 
 ---
 
@@ -84,28 +109,33 @@ These files include the processed outputs used directly by the application, such
 
 ---
 
-## Reproducing the Data
+## Reproducing and updating the Data
 
-The repository also contains the scripts used to collect and process the data from Wikidata.
+The repository contains the extraction and preprocessing scripts used to prepare the wikidata datasets consumed by the dashboard.
 
-These scripts cover:
+A single update script is provided to run the main data-refresh pipeline:
 
-- country-level gender extraction
-- decade-level gender extraction
-- age-group extraction
-- language extraction
-- ethnic-group extraction
-- occupation extraction and refinement
-- label resolution for missing Wikidata QIDs
-- country ISO and map preparation
+```bash
+python scripts/update_all.py
+
+This regenerates and updates the datatsets for:
+- Overall gender distribution
+- Gender distribution by decade
+- Age groups
+- Native and spoken languages
+- Ethnic-group representation
+- Supporting country and Wikidata label mappings
+
+The update pipeline also runs the existing handling for missing and special territories where required.
 
 ---
 
 ## Notes
 
-- the dashboard is designed to run from the prepared files in the `data/` folder
-- if any required data file is missing, some pages or charts may not load correctly
-- the repository includes both the dashboard application and the supporting data-processing scripts used in the project
+- The dashboard uses preprocessed datatsets rather than issuing live Wikidata queries during user interaction.
+- Wikidata changes made after the latest preprocessing run will not appear until the datasets are regenerated.
+- If a required data file is missing, the corresponding dashboard visualisation may not load correctly.
+- The demographic distributions shown by the dashboard describe representation within Wikidata and should not be interpreted directly as real-world population distributions.
 
 ---
 
