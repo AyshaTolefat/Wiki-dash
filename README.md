@@ -14,6 +14,14 @@ The repository also includes the data-processing scripts used to collect, update
 
 ---
 
+## Live Demo
+
+The interactive dashboard is publicly available at:
+
+https://wiki-dash.streamlit.app/
+
+---
+
 ## Features
 
 - interactive globe overview for country selection
