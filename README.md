@@ -151,6 +151,12 @@ This regenerates and updates the datatsets for:
 
 The update pipeline also runs the existing handling for missing and special territories where required.
 
+To refresh the occupation data:
+
+```bash
+python scripts/refresh_occupations.py
+```
+
 ---
 
 ## Notes
