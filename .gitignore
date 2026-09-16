@@ -15,6 +15,7 @@ data/gender_occupation_with_labels.csv
 data/sector_coverage_report.csv
 data/top_other_occupations*.csv
 data/missing_countries_qids.txt
+data/*.backup-*.csv
 .DS_Store
 Thumbs.db
 .env
